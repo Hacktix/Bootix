@@ -199,6 +199,13 @@ FadeValues:
     db "BOOTIX.DMG"
 
 EndBootrom:
+    ; Initialize registers
+    ld a, $FF
+    add $01
+    dec bc
+    ld e, $D8
+    ld hl, $014D
+
 ; Pad remaining space with NOP
 ds $100-@-4, 0
 
