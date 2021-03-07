@@ -10,12 +10,11 @@ SECTION "Bootrom", ROM0[0]
     ld sp, $FFFE
 
     ; Clear VRAM
-    ld hl, $8000
+    ld hl, $9FFF
 ClearVRAM:
     xor a
-    ld [hli], a
-    ld a, h
-    cp $A0
+    ld [hld], a
+    bit 7, h
     jr nz, ClearVRAM
 
     ; Initialize Audio
@@ -31,14 +30,6 @@ ClearVRAM:
     inc c
     ld a, $77
     ld [hld], a
-    ldh [$ff00+c], a
-
-    ; Initialize Channel 1
-    ld c, $11
-    ld a, $80
-    ldh [$ff00+c], a
-    inc c
-    ld a, $F3
     ldh [$ff00+c], a
 
     ; Decode logo and load into VRAM
@@ -138,14 +129,14 @@ IntroAnimLoop:
     
     ; Wait...
     ld de, SOUND_TIMEOUT_2
-SoundWait2:
+LongWaitLoop:
     ldh a, [rLY]
     cp SCRN_Y
-    jr nz, SoundWait2
+    jr nz, LongWaitLoop
     dec de
     ld a, d
     or e
-    jr nz, SoundWait2
+    jr nz, LongWaitLoop
 
     ; Finalize Bootrom
     jr EndBootrom
