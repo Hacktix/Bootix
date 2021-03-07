@@ -35,7 +35,6 @@ ClearVRAM:
     ; Decode logo and load into VRAM
     ld de, $0104
     ld hl, $8010
-    ld c, 48
 DecodeLoop:
     ; Decode first 4 bits of byte
     ld a, [de]
@@ -48,7 +47,8 @@ DecodeLoop:
     
     ; Loop if necessary
     inc de
-    dec c
+    ld a, e
+    cp $34
     jr nz, DecodeLoop
 
     ; Load Trademark Symbol into VRAM
@@ -169,25 +169,18 @@ LogoMapInit:
 
     ; Routine for converting logo byte to VRAM data
 LoadLogoNibble:
-    and $F0
     ld b, a
+    ld c, $04
     xor a
-    bit 7, b
-    jr z, .skipBit1
-    or %11000000
-.skipBit1
-    bit 6, b
-    jr z, .skipBit2
-    or %00110000
-.skipBit2
-    bit 5, b
-    jr z, .skipBit3
-    or %00001100
-.skipBit3
-    bit 4, b
-    jr z, .skipBit4
-    or %00000011
-.skipBit4
+.bitShiftLoop
+    push bc
+    rl b
+    rla 
+    pop bc
+    rl b
+    rla 
+    dec c
+    jr nz, .bitShiftLoop
     ld [hli], a
     inc hl
     ld [hli], a
