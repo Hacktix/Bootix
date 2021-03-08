@@ -893,15 +893,4 @@ OAMB_XFLIP      EQU 5 ; X flip
 OAMB_PAL1       EQU 4 ; Palette number; 0,1 (DMG)
 OAMB_BANK1      EQU 3 ; Bank number; 0,1 (GBC)
 
-
-;*
-;* Nintendo scrolling logo
-;* (Code won't work on a real GameBoy)
-;* (if next lines are altered.)
-NINTENDO_LOGO : MACRO
-    DB  $CE,$ED,$66,$66,$CC,$0D,$00,$0B,$03,$73,$00,$83,$00,$0C,$00,$0D
-    DB  $00,$08,$11,$1F,$88,$89,$00,$0E,$DC,$CC,$6E,$E6,$DD,$DD,$D9,$99
-    DB  $BB,$BB,$67,$63,$6E,$0E,$EC,$CC,$DD,$DC,$99,$9F,$BB,$B9,$33,$3E
-ENDM
-
     ENDC ;HARDWARE_INC
