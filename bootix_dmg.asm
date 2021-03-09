@@ -196,7 +196,7 @@ FadeValues:
     db %00000000, %01010100, %10101000, %11111100
 
     ; Mandatory Copyright Notice
-    db "BOOTIX.DMG v1.1", 0
+    db "BOOTIX.DMG v1.2", 0
 
 EndBootrom:
     ; Initialize registers
