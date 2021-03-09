@@ -1,10 +1,9 @@
 INCLUDE "inc/hardware.inc"
 
 SCX_MAX_OFF     EQU $10
-ANIM_TIMEOUT    EQU 30
-SOUND_TIMEOUT_1 EQU 30
-SOUND_TIMEOUT_2 EQU 608
-POP_TIMEOUT     EQU 95
+ANIM_TIMEOUT    EQU 28
+SOUND_TIMEOUT_1 EQU 39
+SOUND_TIMEOUT_2 EQU 394
 
 SECTION "Bootrom", ROM0[0]
     ; Initialize SP
@@ -206,14 +205,6 @@ EndBootrom:
     dec bc
     ld e, $D8
     ld hl, $014D
-
-    ; Offset Timing
-    ld a, POP_TIMEOUT
-.popLoop
-    push hl
-    pop hl
-    dec a
-    jr nz, .popLoop
 
 ; Pad remaining space with NOP
 ds $100-@-4, 0
